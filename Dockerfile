@@ -17,7 +17,7 @@ COPY backend/pom.xml ./
 RUN mvn dependency:go-offline -B
 COPY backend/src ./src
 # Copy built frontend assets into Spring Boot static directory
-COPY --from=frontend-builder /app/backend/src/main/resources/static ./src/main/resources/static
+COPY --from=frontend-builder /app/frontend/dist ./src/main/resources/static
 RUN mvn clean package -DskipTests -B
 
 # Stage 3: Lightweight Production JRE Runtime

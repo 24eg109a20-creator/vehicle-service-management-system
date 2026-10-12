@@ -57,7 +57,9 @@ fi
 echo "[2/4] Connecting & Building React Frontend into Spring Boot static assets..."
 cd "$DIR/frontend"
 npm run build --silent
-echo "      ✓ Frontend compiled directly into backend/src/main/resources/static"
+mkdir -p "$DIR/backend/src/main/resources/static"
+cp -r dist/* "$DIR/backend/src/main/resources/static/"
+echo "      ✓ Frontend compiled and copied into backend/src/main/resources/static"
 
 # Repackage Spring Boot JAR if needed
 cd "$DIR/backend"

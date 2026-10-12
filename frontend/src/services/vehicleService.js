@@ -33,9 +33,10 @@ async function executeRequest(endpointPath, options = {}) {
       }
     }
 
-    // Both attempts failed to reach the server
+    // Failed to reach server
+    const target = ENV_BACKEND_URL || (isLocalhost() ? 'localhost:8080' : window.location.origin);
     const connectionError = new Error(
-      'Backend service unreachable. Ensure Spring Boot is running and connected (run ./run-online.sh or ./start-all.sh).'
+      `Backend service unreachable at ${target}. Verify your Render backend is running and VITE_API_BASE_URL is configured in Vercel.`
     );
     connectionError.isConnectionError = true;
     throw connectionError;

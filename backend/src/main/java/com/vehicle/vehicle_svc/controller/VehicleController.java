@@ -16,7 +16,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/vehicles")
-@CrossOrigin(origins = "*")
 @Tag(name = "Vehicle Management API", description = "REST APIs for CRUD operations on vehicle records")
 public class VehicleController {
 

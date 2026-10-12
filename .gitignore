@@ -2,6 +2,11 @@
 **/target/
 **/.mvn/wrapper/maven-wrapper.jar
 
+# Environment and secret files
+.env
+.env.local
+*.env.local
+
 # Binaries and logs
 bin/
 *.log

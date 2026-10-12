@@ -137,12 +137,46 @@ Press `Ctrl+C` in the terminal to stop both servers at any time.
 ```
 - Frontend starts at: **`http://localhost:3000`**
 
-### Option 4: 🐳 Run with Docker (Cloud / Production)
+### Option 4: 🐳 Run with Docker (Local / Cloud Container)
 Run the entire application and MySQL database in isolated containers:
 ```bash
 docker-compose up --build
 ```
 Access at `http://localhost:8080`.
+
+### Option 5: ☁️ Public Cloud Deployment (Vercel Frontend + Render Backend)
+
+#### 1. Backend Deployment on Render
+1. Go to [Render Dashboard](https://dashboard.render.com).
+2. **Create Database (PostgreSQL):**
+   - Click **New +** → **PostgreSQL**.
+   - Name: `vehicle-db` (Database: `vehicle_db`, User: `vehicle_user`).
+   - Click **Create Database**.
+   - Copy the **Internal Database URL** (or Hostname, Username, and Password).
+3. **Deploy Backend Web Service:**
+   - Click **New +** → **Web Service**.
+   - Connect GitHub repo: `vehicle-service-backend` (or root repository `vehicle-service-management-system` with Root Directory set to `backend`).
+   - Runtime: **Java** (or Docker).
+   - Build Command: `./mvnw clean package -DskipTests`
+   - Start Command: `java -jar target/vehicle-svc-0.0.1-SNAPSHOT.jar`
+   - Health Check Path: `/health` (or `/actuator/health`)
+   - **Environment Variables:**
+     - `SPRING_DATASOURCE_URL`: `jdbc:postgresql://<HOSTNAME>:5432/<DB_NAME>` (or paste Render `DATABASE_URL`)
+     - `SPRING_DATASOURCE_USERNAME`: your database username
+     - `SPRING_DATASOURCE_PASSWORD`: your database password
+     - `CORS_ALLOWED_ORIGINS`: `https://<YOUR-VERCEL-DOMAIN>.vercel.app,http://localhost:3000`
+4. Copy your live Render URL (e.g., `https://vehicle-service-backend.onrender.com`).
+
+#### 2. Frontend Deployment on Vercel
+1. Go to [Vercel Dashboard](https://vercel.com/new).
+2. Click **Import** on your GitHub repo: `vehicle-service-frontend`.
+3. Framework Preset: **Vite** (Build: `npm run build`, Output: `dist`).
+4. **Environment Variables:**
+   - Name: `VITE_API_BASE_URL`
+   - Value: `https://vehicle-service-backend.onrender.com` *(your live Render backend URL, without trailing slash)*
+5. Click **Deploy**.
+6. Once deployed, add your Vercel URL (e.g., `https://vehicle-service-frontend.vercel.app`) to Render's `CORS_ALLOWED_ORIGINS`.
+
 
 
 ---

@@ -44,6 +44,19 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- PostgreSQL JDBC Driver for Cloud Deployment (Render / Neon / Supabase) -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Spring Boot Actuator for Production Health Checks -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 		<!-- OpenAPI 3 / Swagger UI for Interactive API Documentation -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
