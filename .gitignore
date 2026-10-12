@@ -1,0 +1,17 @@
+# Compiled class file
+**/target/
+**/.mvn/wrapper/maven-wrapper.jar
+
+# Binaries and logs
+bin/
+*.log
+
+# Package directories
+**/node_modules/
+**/dist/
+
+# OS and IDE files
+.DS_Store
+.idea/
+*.iml
+.vscode/
